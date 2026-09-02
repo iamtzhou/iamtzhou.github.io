@@ -5,8 +5,8 @@ endDate: "2026.6"
 summary: "A compact learning-oriented coding agent with an explicit execution loop, bounded context, tool observations, completion checks, and reproducible evaluation."
 tags:
   - "Coding agents"
+  - "Harness engineering"
   - "Reliability"
-  - "Evaluation"
 featured: false
 draft: false
 ---
