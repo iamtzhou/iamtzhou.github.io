@@ -1,0 +1,50 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import { sitePath } from '../lib/content';
+
+interface Props {
+  title: string;
+  description: string;
+  kicker: string;
+  backHref: string;
+  backLabel: string;
+  metadata: string[];
+  tags?: string[];
+  links?: Record<string, string>;
+  draft?: boolean;
+}
+
+const {
+  title,
+  description,
+  kicker,
+  backHref,
+  backLabel,
+  metadata,
+  tags = [],
+  links,
+  draft = false,
+} = Astro.props;
+---
+
+<BaseLayout title={title} description={description} shareImage={false}>
+  <article class="detail wrap">
+    <a class="back-link" href={sitePath(backHref)}>← {backLabel}</a>
+    <header class="detail-header">
+      <div>
+        <p class="eyebrow">{kicker}{draft && <span class="draft-label">Draft</span>}</p>
+        <h1>{title}</h1>
+      </div>
+      <div class="detail-meta">
+        {metadata.map((item) => <p>{item}</p>)}
+        {tags.length > 0 && <ul class="tag-list" aria-label="Topics">{tags.map((tag) => <li>{tag}</li>)}</ul>}
+        {links && (
+          <div class="detail-links">
+            {Object.entries(links).map(([label, href]) => <a href={href} target="_blank" rel="noreferrer">{label} ↗</a>)}
+          </div>
+        )}
+      </div>
+    </header>
+    <div class="prose article-body"><slot /></div>
+  </article>
+</BaseLayout>

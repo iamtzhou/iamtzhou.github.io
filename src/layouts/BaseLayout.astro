@@ -1,0 +1,67 @@
+---
+import '../styles/global.css';
+import { getProfile, sitePath } from '../lib/content';
+
+interface Props {
+  title?: string;
+  description?: string;
+  shareImage?: boolean;
+  homePage?: boolean;
+}
+
+const {
+  title,
+  description = 'Personal academic and technical homepage.',
+  shareImage = true,
+  homePage = false,
+} = Astro.props;
+const profile = await getProfile();
+const pageTitle = title ? `${title} — ${profile.data.name}` : `${profile.data.name} — Research & Engineering`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const shareImageUrl = new URL(sitePath('/og.png'), Astro.site);
+const pathname = Astro.url.pathname;
+const isCurrent = (href: string) => href === '/' ? pathname === '/' : pathname.startsWith(href);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href={sitePath('/favicon.svg')} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    {shareImage && <meta property="og:image" content={shareImageUrl} />}
+    <meta name="twitter:card" content={shareImage ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    {shareImage && <meta name="twitter:image" content={shareImageUrl} />}
+    <title>{pageTitle}</title>
+  </head>
+  <body class={homePage ? 'home-page' : undefined}>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header wrap">
+      <a class="wordmark" href={sitePath('/')} aria-label="Home">Home</a>
+      <nav aria-label="Primary navigation">
+        <a href={sitePath('/papers/')} aria-current={isCurrent(sitePath('/papers/')) ? 'page' : undefined}>Papers</a>
+        <a href={sitePath('/projects/')} aria-current={isCurrent(sitePath('/projects/')) ? 'page' : undefined}>Projects</a>
+        <a href={sitePath('/articles/')} aria-current={isCurrent(sitePath('/articles/')) ? 'page' : undefined}>Writing</a>
+        <a href={sitePath('/cv/')} aria-current={isCurrent(sitePath('/cv/')) ? 'page' : undefined}>CV</a>
+      </nav>
+    </header>
+    <main id="main">
+      <slot />
+    </main>
+    {!homePage && (
+      <footer class="site-footer wrap">
+        <span>Built from Markdown · {new Date().getFullYear()}</span>
+        <a href="#main">Back to top ↑</a>
+      </footer>
+    )}
+  </body>
+</html>

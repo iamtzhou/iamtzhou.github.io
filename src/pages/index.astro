@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getProfile, sitePath } from '../lib/content';
+
+const profile = await getProfile();
+---
+
+<BaseLayout description={profile.data.summary} homePage>
+  <section class="hero wrap">
+    <div class="identity">
+      <h1>{profile.data.name}<span>{profile.data.nameZh}</span></h1>
+      <p class="affiliation">{profile.data.role}<br />{profile.data.affiliation}<br />{profile.data.location}</p>
+      <div class="profile-links" aria-label="Profile links">
+        <a href={`mailto:${profile.data.email}`}>Email</a>
+        {profile.data.links.github && <a href={profile.data.links.github} target="_blank" rel="noreferrer">GitHub ↗</a>}
+        {profile.data.links.cv && <a href={sitePath(profile.data.links.cv)}>CV</a>}
+      </div>
+    </div>
+    <div class="introduction">
+      <p class="lead">{profile.data.summary}</p>
+      <div class="interest-list">
+        <span>Current interests</span>
+        <ul>{profile.data.interests.map((interest) => <li>{interest}</li>)}</ul>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

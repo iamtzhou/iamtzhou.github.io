@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { sitePath } from '../lib/content';
+---
+
+<BaseLayout title="Page not found" description="The requested page could not be found." shareImage={false}>
+  <section class="not-found wrap">
+    <p class="eyebrow">Error / 404</p>
+    <h1>Nothing at this index.</h1>
+    <p>The page may have moved, or the address may be incomplete.</p>
+    <a href={sitePath('/')}>Return home →</a>
+  </section>
+</BaseLayout>

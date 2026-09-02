@@ -1,0 +1,38 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { byProjectPeriodDescending, formatProjectPeriod, getProfile, isPublished, sitePath } from '../lib/content';
+
+const profile = await getProfile();
+const papers = (await getCollection('papers')).filter(isPublished).sort((a, b) => b.data.year - a.data.year);
+const projects = (await getCollection('projects')).filter(isPublished).sort(byProjectPeriodDescending);
+---
+
+<BaseLayout title="CV" description={`Curriculum vitae for ${profile.data.name}.`} shareImage={false}>
+  <article class="cv wrap">
+    <header class="cv-header">
+      <div><p class="eyebrow">Curriculum Vitae</p><h1>{profile.data.name}</h1><p>{profile.data.role} · {profile.data.affiliation}</p></div>
+      <div class="cv-contact"><a href={`mailto:${profile.data.email}`}>{profile.data.email}</a><span>{profile.data.location}</span><button type="button" data-print>Print / Save PDF</button></div>
+    </header>
+
+    <section class="cv-section">
+      <h2>Research interests</h2>
+      <p>{profile.data.interests.join(' · ')}</p>
+    </section>
+    <section class="cv-section">
+      <h2>Education</h2>
+      <div class="cv-items">{profile.data.education.map((item) => <div class="cv-item"><p><strong>{item.institution}</strong><br />{item.degree}</p><span>{item.period}</span></div>)}</div>
+    </section>
+    <section class="cv-section">
+      <h2>Publications</h2>
+      <div class="cv-items">{papers.map((paper) => <div class="cv-item"><p><strong><a href={sitePath(`/papers/${paper.id}/`)}>{paper.data.title}</a></strong><br />{paper.data.authors.join(', ')} · {paper.data.venue}</p><span>{paper.data.year}</span></div>)}</div>
+    </section>
+    <section class="cv-section">
+      <h2>Selected projects</h2>
+      <div class="cv-items">{projects.filter((project) => project.data.featured).map((project) => <div class="cv-item"><p><strong><a href={sitePath(`/projects/${project.id}/`)}>{project.data.title}</a></strong><br />{project.data.summary}</p><span>{formatProjectPeriod(project.data.startDate, project.data.endDate)}</span></div>)}</div>
+    </section>
+  </article>
+  <script>
+    document.querySelector('[data-print]')?.addEventListener('click', () => window.print());
+  </script>
+</BaseLayout>

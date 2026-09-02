@@ -1,0 +1,17 @@
+---
+import { getCollection } from 'astro:content';
+import EntryRow from '../../components/EntryRow.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { byDateDescending, formatDate, isPublished, sitePath } from '../../lib/content';
+
+const articles = (await getCollection('articles')).filter(isPublished).sort(byDateDescending);
+---
+
+<BaseLayout title="Writing" description="Technical notes and essays on agent systems and research practice.">
+  <header class="archive-header wrap">
+    <h1>Writing</h1>
+  </header>
+  <section class="archive-list wrap" aria-label="Articles">
+    {articles.map((article) => <EntryRow href={sitePath(`/articles/${article.id}/`)} meta={formatDate(article.data.date)} title={article.data.title} summary={article.data.summary} tags={article.data.tags} draft={article.data.draft} />)}
+  </section>
+</BaseLayout>
