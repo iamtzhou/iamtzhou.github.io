@@ -16,7 +16,7 @@ const {
   homePage = false,
 } = Astro.props;
 const profile = await getProfile();
-const pageTitle = title ? `${title} — ${profile.data.name}` : `${profile.data.name} — Research & Engineering`;
+const pageTitle = title ? `${title} — ${profile.data.name}` : `${profile.data.name}'s Homepage`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const shareImageUrl = new URL(sitePath('/og.png'), Astro.site);
 const pathname = Astro.url.pathname;
