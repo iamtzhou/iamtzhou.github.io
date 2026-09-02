@@ -12,6 +12,6 @@ const articles = (await getCollection('articles')).filter(isPublished).sort(byDa
     <h1>Writing</h1>
   </header>
   <section class="archive-list wrap" aria-label="Articles">
-    {articles.map((article) => <EntryRow href={sitePath(`/articles/${article.id}/`)} meta={formatDate(article.data.date)} title={article.data.title} summary={article.data.summary} tags={article.data.tags} draft={article.data.draft} />)}
+    {articles.length > 0 ? articles.map((article) => <EntryRow href={sitePath(`/articles/${article.id}/`)} meta={formatDate(article.data.date)} title={article.data.title} summary={article.data.summary} tags={article.data.tags} draft={article.data.draft} />) : <p class="empty-state">Nothing here yet.</p>}
   </section>
 </BaseLayout>

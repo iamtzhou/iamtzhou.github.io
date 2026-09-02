@@ -12,6 +12,6 @@ const projects = (await getCollection('projects')).filter(isPublished).sort(byPr
     <h1>Projects</h1>
   </header>
   <section class="archive-list wrap" aria-label="Projects">
-    {projects.map((project) => <EntryRow href={sitePath(`/projects/${project.id}/`)} meta={formatProjectPeriod(project.data.startDate, project.data.endDate)} title={project.data.title} summary={project.data.summary} tags={project.data.tags} draft={project.data.draft} />)}
+    {projects.length > 0 ? projects.map((project) => <EntryRow href={sitePath(`/projects/${project.id}/`)} meta={formatProjectPeriod(project.data.startDate, project.data.endDate)} title={project.data.title} summary={project.data.summary} tags={project.data.tags} draft={project.data.draft} />) : <p class="empty-state">Nothing here yet.</p>}
   </section>
 </BaseLayout>
