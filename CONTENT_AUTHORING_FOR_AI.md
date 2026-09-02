@@ -9,7 +9,7 @@ AI 只能在以下内容路径中创建或修改 Markdown：
 ```text
 src/content/profile.md
 src/content/projects/*.md
-src/content/papers/*.md
+src/content/publications/*.md
 src/content/articles/*.md
 ```
 
@@ -45,8 +45,8 @@ AI 必须遵守以下事实约束：
 src/content/projects/my-project.md
 → /projects/my-project/
 
-src/content/papers/my-paper.md
-→ /papers/my-paper/
+src/content/publications/my-paper.md
+→ /publications/my-paper/
 
 src/content/articles/my-article.md
 → /articles/my-article/
@@ -205,7 +205,7 @@ State verified results, limitations, or the current stage without exaggeration.
 目标目录：
 
 ```text
-src/content/papers/
+src/content/publications/
 ```
 
 完整模板：

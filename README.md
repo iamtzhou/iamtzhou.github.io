@@ -24,7 +24,7 @@ npm run preview
 
 - `profile.md`：姓名、身份、简介、研究兴趣、教育与个人链接。
 - `projects/*.md`：项目。
-- `papers/*.md`：论文。
+- `publications/*.md`：论文。
 - `articles/*.md`：技术文章。
 
 现有条目是用于验证页面、排序、详情页和草稿规则的示例内容。替换它们即可，不需要修改页面代码。文件名就是稳定 slug，例如 `projects/my-system.md` 会生成 `/projects/my-system/`。
