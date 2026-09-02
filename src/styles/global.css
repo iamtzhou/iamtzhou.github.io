@@ -74,7 +74,7 @@ h1 span { display: block; margin-top: 16px; color: var(--accent); font-family: v
 .interest-list ul { display: flex; flex-wrap: wrap; gap: 8px 24px; margin: 0; padding: 0; list-style: none; }
 .entries { border-top: 1px solid var(--ink); }
 .entry-row { display: grid; grid-template-columns: 180px 1fr; gap: clamp(30px, 7vw, 100px); padding-block: 30px; border-bottom: 1px solid var(--rule); }
-.entry-meta { margin: 4px 0 0; color: var(--muted); font: .68rem/1.5 var(--mono); text-transform: uppercase; }
+.entry-meta { margin: 4px 0 0; color: var(--muted); font: .8rem/1.5 var(--mono); text-transform: uppercase; }
 .draft-label { display: inline-block; margin-left: 10px; padding: 2px 5px; border: 1px solid var(--accent); color: var(--accent); font-size: .6rem; letter-spacing: .06em; vertical-align: 1px; }
 .entry-main h2 { margin: 0 0 8px; font: 400 clamp(1.45rem, 2.3vw, 2.1rem)/1.15 var(--serif); }
 .entry-main h2 a { display: inline-flex; gap: 12px; text-decoration: none; }

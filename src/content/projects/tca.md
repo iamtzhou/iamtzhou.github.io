@@ -7,7 +7,7 @@ tags:
   - "Coding agents"
   - "Harness engineering"
   - "Reliability"
-featured: false
+featured: true
 draft: false
 ---
 
