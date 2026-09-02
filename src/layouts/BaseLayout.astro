@@ -28,7 +28,7 @@ const isCurrent = (href: string) => href === '/' ? pathname === '/' : pathname.s
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <script>
+    <script is:inline>
       (function () {
         const stored = localStorage.getItem('theme');
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -81,6 +81,53 @@ const isCurrent = (href: string) => href === '/' ? pathname === '/' : pathname.s
       html.setAttribute('data-theme', next);
       localStorage.setItem('theme', next);
     });
+  </script>
+  <script is:inline>
+    (function () {
+      // Original Shiki color → [light (on #e2dcd6), dark (on #2d2525)]
+      var map = {
+        '#D73A49': ['#9b1b30', '#f0a0a8'],  // keyword
+        '#6F42C1': ['#5c1f8a', '#c9a0e8'],  // function
+        '#24292E': ['#1a1714', '#e0d8cc'],  // text
+        '#005CC5': ['#004089', '#90b8f8'],  // number/constant
+        '#032F62': ['#0a5228', '#90d8a8'],  // string
+        '#6A737D': ['#6b6358', '#9a9080'],  // comment
+        '#22863A': ['#0d5c1a', '#7ee08c'],  // string alt
+        '#B31D28': ['#8b1520', '#f5a0a8'],  // emphasis
+        '#E36209': ['#b34d00', '#f0b070'],  // special
+        '#F97583': ['#9b1b30', '#f97583'],  // keyword (dark origin)
+        '#B392F0': ['#5c1f8a', '#b392f0'],  // function (dark origin)
+        '#E1E4E8': ['#1a1714', '#e1e4e8'],  // text (dark origin)
+        '#79B8FF': ['#004089', '#79b8ff'],  // number (dark origin)
+        '#9ECBFF': ['#0a5228', '#9ecbff'],  // string (dark origin)
+      };
+      var ready = false;
+
+      function apply () {
+        var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+        var bg = dark ? '#2d2525' : '#e2dcd6';
+        var idx = dark ? 1 : 0;
+        document.querySelectorAll('pre').forEach(function (el) {
+          el.style.setProperty('background-color', bg, 'important');
+          el.querySelectorAll('span').forEach(function (span) {
+            if (!ready) {
+              var m = (span.getAttribute('style') || '').match(/color:\s*(#[0-9A-Fa-f]{6})/i);
+              if (m) span.setAttribute('data-oc', m[1].toUpperCase());
+            }
+            var oc = span.getAttribute('data-oc');
+            if (oc && map[oc]) span.style.setProperty('color', map[oc][idx], 'important');
+          });
+        });
+        document.querySelectorAll(':not(pre) > code').forEach(function (el) {
+          el.style.setProperty('background-color', bg, 'important');
+        });
+        ready = true;
+      }
+
+      apply();
+      var btn = document.querySelector('[data-theme-toggle]');
+      btn && btn.addEventListener('click', function () { setTimeout(apply, 0); });
+    })();
   </script>
 
   </body>
