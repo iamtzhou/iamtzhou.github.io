@@ -75,7 +75,8 @@ h1 span { display: block; margin-top: 16px; color: var(--accent); font-family: v
 .interest-list > span { color: var(--muted); font: .82rem/1.5 var(--mono); text-transform: uppercase; }
 .interest-list ul { display: flex; flex-wrap: wrap; gap: 8px 24px; margin: 0; padding: 0; list-style: none; }
 .entries { border-top: 1px solid var(--ink); }
-.entry-row { display: grid; grid-template-columns: 180px 1fr; gap: clamp(30px, 7vw, 100px); padding-block: 30px; border-bottom: 1px solid var(--rule); }
+.entry-row { display: grid; grid-template-columns: 180px 1fr; gap: clamp(30px, 7vw, 100px); padding-block: 30px; border-bottom: 1px solid var(--rule); transition: background 160ms ease; border-radius: 4px; }
+.entry-row:hover { background: color-mix(in srgb, var(--accent) 5%, transparent); }
 .entry-meta { margin: 4px 0 0; color: var(--muted); font: .8rem/1.5 var(--mono); text-transform: uppercase; }
 .draft-label { display: inline-block; margin-left: 10px; padding: 2px 5px; border: 1px solid var(--accent); color: var(--accent); font-size: .6rem; letter-spacing: .06em; vertical-align: 1px; }
 .entry-main h2 { margin: 0 0 8px; font: 400 clamp(1.45rem, 2.3vw, 2.1rem)/1.15 var(--serif); }
@@ -106,7 +107,7 @@ h1 span { display: block; margin-top: 16px; color: var(--accent); font-family: v
 .article-body ul, .article-body ol { padding-left: 1.3em; }
 .article-body code { font: .86em/1.4 var(--mono); }
 .article-body :not(pre) > code { padding: .12em .3em; background: color-mix(in srgb, var(--ink) 10%, var(--paper)); }
-.article-body pre { overflow-x: auto; margin-block: 2em; padding: 22px; background: var(--ink); color: #e9e7e0; font: .8rem/1.65 var(--mono); }
+.article-body pre { overflow-x: auto; margin-block: 2em; padding: 22px; background: color-mix(in srgb, var(--ink) 35%, var(--paper)); color: #e9e7e0; font: .8rem/1.65 var(--mono); border-radius: 6px; }
 
 .cv { padding-block: 80px 130px; }
 .cv-header { display: grid; grid-template-columns: 1fr 280px; gap: 80px; align-items: end; padding-bottom: 70px; border-bottom: 2px solid var(--ink); }

@@ -70,7 +70,7 @@ const isCurrent = (href: string) => href === '/' ? pathname === '/' : pathname.s
     </main>
     {!homePage && (
       <footer class="site-footer wrap">
-        <span>Built from Markdown · {new Date().getFullYear()}</span>
+        <span>{profile.data.name}'s Homepage</span>
         <a href="#main">Back to top ↑</a>
       </footer>
     )}
