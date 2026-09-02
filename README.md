@@ -35,7 +35,7 @@ npm run preview
 
 - `draft: true`：本地开发可见并标注 Draft，生产构建不生成该条目。
 - `featured: true`：保留为内容编辑标记；首页不会读取它。Project 中的该字段目前仅用于 CV 的精选项目。
-- Project 使用 `startDate` / `endDate` 月份范围并按结束月份倒序；Article 按 `date` 倒序；Paper 按 `year` 倒序。
+- Project 使用 `startDate` / `endDate` 月份范围并按结束月份倒序；Article 按 `date` 倒序；Publications 按 `year` 倒序。
 - 长正文写在 frontmatter 下方的 Markdown body 中。
 
 ## 个性化检查单

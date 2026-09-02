@@ -14,7 +14,7 @@ const { href, meta, title, summary, tags = [], draft = false } = Astro.props;
 <article class="entry-row">
   <p class="entry-meta">{meta}{draft && <span class="draft-label">Draft</span>}</p>
   <div class="entry-main">
-    <h2><a href={href}>{title}<span aria-hidden="true">↗</span></a></h2>
+    <h2><a href={href}>{title}</a></h2>
     <p>{summary}</p>
     {tags.length > 0 && <ul class="tag-list" aria-label="Topics">{tags.map((tag) => <li>{tag}</li>)}</ul>}
   </div>
