@@ -82,5 +82,60 @@ const isCurrent = (href: string) => href === '/' ? pathname === '/' : pathname.s
       localStorage.setItem('theme', next);
     });
   </script>
+
+  <!-- DEBUG COLOR PANEL (remove after tuning) -->
+  <div id="debug-color" style="position:fixed;bottom:16px;right:16px;z-index:999;display:flex;gap:6px;align-items:center;padding:8px 12px;background:rgba(128,128,128,.85);border-radius:8px;font:12px/1 monospace;color:#fff;backdrop-filter:blur(4px)">
+    <label>R<input type="number" min="0" max="255" id="dbg-r" style="width:48px"></label>
+    <label>G<input type="number" min="0" max="255" id="dbg-g" style="width:48px"></label>
+    <label>B<input type="number" min="0" max="255" id="dbg-b" style="width:48px"></label>
+    <button id="dbg-apply" style="cursor:pointer">Apply</button>
+    <button id="dbg-reset" style="cursor:pointer">Reset</button>
+  </div>
+  <script is:inline>
+    (function () {
+      var html = document.documentElement;
+      var theme = html.getAttribute('data-theme') || 'light';
+      var STORE_KEY = 'dbg-paper-' + theme;
+      var saved = localStorage.getItem(STORE_KEY);
+      var defaults = { light: [243, 241, 235], dark: [22, 20, 15] };
+
+      function apply (r, g, b) {
+        html.style.setProperty('--paper', 'rgb(' + r + ',' + g + ',' + b + ')');
+      }
+
+      function getEl (id) { return document.getElementById(id); }
+
+      function setInputs (r, g, b) {
+        getEl('dbg-r').value = r;
+        getEl('dbg-g').value = g;
+        getEl('dbg-b').value = b;
+      }
+
+      if (saved) {
+        var c = JSON.parse(saved);
+        apply(c[0], c[1], c[2]);
+        setInputs(c[0], c[1], c[2]);
+      } else {
+        var d = defaults[theme];
+        setInputs(d[0], d[1], d[2]);
+      }
+
+      getEl('dbg-apply').addEventListener('click', function () {
+        var r = +getEl('dbg-r').value;
+        var g = +getEl('dbg-g').value;
+        var b = +getEl('dbg-b').value;
+        apply(r, g, b);
+        localStorage.setItem(STORE_KEY, JSON.stringify([r, g, b]));
+      });
+
+      getEl('dbg-reset').addEventListener('click', function () {
+        var d = defaults[theme];
+        html.style.removeProperty('--paper');
+        setInputs(d[0], d[1], d[2]);
+        localStorage.removeItem(STORE_KEY);
+      });
+    })();
+  </script>
+  <!-- END DEBUG -->
   </body>
 </html>
