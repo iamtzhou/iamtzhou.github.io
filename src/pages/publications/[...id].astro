@@ -1,0 +1,18 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import DetailLayout from '../../layouts/DetailLayout.astro';
+import { isPublished } from '../../lib/content';
+
+export async function getStaticPaths() {
+  const publications = (await getCollection('publications')).filter(isPublished);
+  return publications.map((pub) => ({ params: { id: pub.id }, props: { pub } }));
+}
+
+interface Props { pub: CollectionEntry<'publications'> }
+const { pub } = Astro.props;
+const { Content } = await render(pub);
+---
+
+<DetailLayout title={pub.data.title} description={pub.data.summary} kicker="Publication" backHref="/publications/" backLabel="All publications" metadata={[String(pub.data.year), pub.data.venue, pub.data.authors.join(' · ')]} links={pub.data.links} draft={pub.data.draft}>
+  <Content />
+</DetailLayout>

@@ -56,7 +56,7 @@ const isCurrent = (href: string) => href === '/' ? pathname === '/' : pathname.s
     <header class="site-header wrap">
       <a class="wordmark" href={sitePath('/')} aria-label="Home">Home</a>
       <nav aria-label="Primary navigation">
-        <a href={sitePath('/papers/')} aria-current={isCurrent(sitePath('/papers/')) ? 'page' : undefined}>Papers</a>
+        <a href={sitePath('/publications/')} aria-current={isCurrent(sitePath('/publications/')) ? 'page' : undefined}>Publications</a>
         <a href={sitePath('/projects/')} aria-current={isCurrent(sitePath('/projects/')) ? 'page' : undefined}>Projects</a>
         <a href={sitePath('/articles/')} aria-current={isCurrent(sitePath('/articles/')) ? 'page' : undefined}>Writing</a>
         <button class="theme-toggle" type="button" aria-label="Toggle dark mode" data-theme-toggle>

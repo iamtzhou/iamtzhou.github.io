@@ -48,8 +48,8 @@ const projects = defineCollection({
   }),
 });
 
-const papers = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/papers' }),
+const publications = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/publications' }),
   schema: z.object({
     title: z.string(),
     year: z.number().int(),
@@ -74,4 +74,4 @@ const articles = defineCollection({
   }),
 });
 
-export const collections = { profile, projects, papers, articles };
+export const collections = { profile, projects, publications, articles };

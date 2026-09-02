@@ -1,0 +1,17 @@
+---
+import { getCollection } from 'astro:content';
+import EntryRow from '../../components/EntryRow.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { isPublished, sitePath } from '../../lib/content';
+
+const publications = (await getCollection('publications')).filter(isPublished).sort((a, b) => b.data.year - a.data.year);
+---
+
+<BaseLayout title="Publications" description="Publications and research manuscripts.">
+  <header class="archive-header wrap">
+    <h1>Publications</h1>
+  </header>
+  <section class="archive-list wrap" aria-label="Publications">
+    {publications.length > 0 ? publications.map((pub) => <EntryRow href={sitePath(`/publications/${pub.id}/`)} meta={`${pub.data.year} · ${pub.data.venue}`} title={pub.data.title} summary={pub.data.summary} draft={pub.data.draft} />) : <p class="empty-state">Nothing here yet.</p>}
+  </section>
+</BaseLayout>

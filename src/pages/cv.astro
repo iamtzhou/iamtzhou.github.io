@@ -4,7 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { byProjectPeriodDescending, formatProjectPeriod, getProfile, isPublished, sitePath } from '../lib/content';
 
 const profile = await getProfile();
-const papers = (await getCollection('papers')).filter(isPublished).sort((a, b) => b.data.year - a.data.year);
+const publications = (await getCollection('publications')).filter(isPublished).sort((a, b) => b.data.year - a.data.year);
 const projects = (await getCollection('projects')).filter(isPublished).sort(byProjectPeriodDescending);
 ---
 
@@ -25,7 +25,7 @@ const projects = (await getCollection('projects')).filter(isPublished).sort(byPr
     </section>
     <section class="cv-section">
       <h2>Publications</h2>
-      <div class="cv-items">{papers.map((paper) => <div class="cv-item"><p><strong><a href={sitePath(`/papers/${paper.id}/`)}>{paper.data.title}</a></strong><br />{paper.data.authors.join(', ')} · {paper.data.venue}</p><span>{paper.data.year}</span></div>)}</div>
+      <div class="cv-items">{publications.map((pub) => <div class="cv-item"><p><strong><a href={sitePath(`/publications/${pub.id}/`)}>{pub.data.title}</a></strong><br />{pub.data.authors.join(', ')} · {pub.data.venue}</p><span>{pub.data.year}</span></div>)}</div>
     </section>
     <section class="cv-section">
       <h2>Selected projects</h2>
