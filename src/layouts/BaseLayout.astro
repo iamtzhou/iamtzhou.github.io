@@ -19,8 +19,31 @@ const profile = await getProfile();
 const pageTitle = title ? `${title} — ${profile.data.name}` : `${profile.data.name}'s Homepage`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const shareImageUrl = new URL(sitePath('/og.png'), Astro.site);
+const homeUrl = new URL(sitePath('/'), Astro.site);
 const pathname = Astro.url.pathname;
 const isCurrent = (href: string) => href === '/' ? pathname === '/' : pathname.startsWith(href);
+const sameAs = profile.data.links.github ? [profile.data.links.github] : [];
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': `${homeUrl.href}#person`,
+  name: profile.data.name,
+  ...(profile.data.nameZh ? { alternateName: profile.data.nameZh } : {}),
+  url: homeUrl.href,
+  description: profile.data.summary,
+  jobTitle: profile.data.role,
+  affiliation: {
+    '@type': 'CollegeOrUniversity',
+    name: profile.data.affiliation,
+  },
+  homeLocation: {
+    '@type': 'Place',
+    name: profile.data.location,
+  },
+  knowsAbout: profile.data.interests,
+  ...(sameAs.length > 0 ? { sameAs } : {}),
+};
+const personJsonLdJson = JSON.stringify(personJsonLd).replaceAll('<', '\\u003c');
 ---
 
 <!doctype html>
@@ -49,6 +72,7 @@ const isCurrent = (href: string) => href === '/' ? pathname === '/' : pathname.s
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
     {shareImage && <meta name="twitter:image" content={shareImageUrl} />}
+    {homePage && <script is:inline type="application/ld+json" set:html={personJsonLdJson}></script>}
     <title>{pageTitle}</title>
   </head>
   <body class={homePage ? 'home-page' : undefined}>

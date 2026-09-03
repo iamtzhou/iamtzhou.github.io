@@ -31,6 +31,8 @@ npm run preview
 
 字段契约集中在 `src/content.config.ts`。保存或构建时，缺失字段、错误日期、无效 URL 等会直接报错。
 
+站点的 `/sitemap.xml`、`/robots.txt` 和首页 Person JSON-LD 会在构建时自动生成。Sitemap 会收录固定页面以及所有公开的 Project、Publication 和 Article，并排除 `draft: true` 的内容；Person 数据来自 `profile.md`。日常更新内容时无需手工维护这些 SEO 文件。
+
 核心规则：
 
 - `draft: true`：本地开发可见并标注 Draft，生产构建不生成该条目。
