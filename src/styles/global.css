@@ -78,7 +78,7 @@ button { font: inherit; }
 nav { display: flex; gap: clamp(18px, 3vw, 40px); }
 .wordmark, nav a { font-family: var(--mono); font-size: .84rem; font-weight: 400; text-decoration: none; text-transform: uppercase; letter-spacing: .07em; }
 nav a[aria-current='page'] { color: var(--accent); text-decoration: underline; }
-.theme-toggle { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; margin-left: 12px; padding: 0; border: 0; background: transparent; color: var(--accent); cursor: pointer; opacity: .45; transition: opacity 160ms ease, color 160ms ease; }
+.theme-toggle { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; margin-left: 12px; padding: 0; border: 0; background: transparent; color: var(--accent); cursor: pointer; opacity: .75; transition: opacity 160ms ease, color 160ms ease; }
 .theme-toggle:hover { opacity: 1; color: var(--ink); }
 .theme-toggle svg { display: none; width: 14px; height: 14px; }
 [data-theme='light'] .theme-toggle [data-sun] { display: block; }
@@ -109,9 +109,10 @@ h1 span { display: block; margin-top: 16px; color: var(--accent); font-family: v
 .entry-main h2 { margin: 0 0 8px; font: 400 clamp(1.45rem, 2.3vw, 2.1rem)/1.15 var(--serif); }
 .entry-main h2 a { text-decoration: none; }
 .entry-main > p { max-width: 760px; margin: 0; color: var(--muted); }
-.tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; padding: 0; list-style: none; font: .7rem/1.4 var(--mono); text-transform: uppercase; }
-.tag-list li { padding: 3px 10px; border: 1px solid var(--rule); border-radius: 999px; color: var(--muted); }
-.tag-list li::before { content: '#'; margin-right: 4px; color: var(--accent); }
+.tag-list { display: flex; flex-wrap: wrap; gap: 0; margin: 14px 0 0; padding: 0; list-style: none; font: .7rem/1.4 var(--mono); }
+.tag-list li { color: var(--muted); }
+.tag-list li::before { content: '#'; color: var(--accent); }
+.tag-list li:not(:last-child)::after { content: '·'; margin-inline: 8px; color: var(--muted); }
 .archive-header { display: flex; align-items: end; min-height: 330px; padding-block: 90px 68px; }
 .archive-header h1 { margin: 0; font-size: clamp(4.5rem, 9vw, 9rem); line-height: .75; }
 .archive-list { padding-bottom: 110px; }
@@ -163,13 +164,8 @@ h1 span { display: block; margin-top: 16px; color: var(--accent); font-family: v
 .not-found h1 { max-width: 800px; margin-bottom: 30px; }
 .not-found > p:not(.eyebrow) { color: var(--muted); }
 .site-footer { display: flex; justify-content: space-between; padding-block: 30px 46px; border-top: 1px solid var(--rule); color: var(--muted); font: .68rem/1.5 var(--mono); text-transform: uppercase; }
-@media (max-width: 760px) {
-  .wrap { width: min(100% - 32px, 620px); }
-  .site-header { height: 72px; }
-  nav { gap: 12px; }
-  .wordmark, nav a { font-size: .7rem; }
+@media (max-width: 960px) {
   .hero { min-height: auto; grid-template-columns: 1fr; gap: 60px; padding-block: 68px 92px; }
-  .home-page main { height: calc(100svh - 72px); }
   .home-page .hero { align-content: center; gap: clamp(20px, 4vh, 40px); padding-block: clamp(20px, 4vh, 36px); }
   .home-page h1 { margin-bottom: clamp(16px, 2vh, 24px); font-size: clamp(3rem, 15vw, 4.2rem); }
   .home-page h1 span { margin-top: 10px; }
@@ -178,8 +174,15 @@ h1 span { display: block; margin-top: 16px; color: var(--accent); font-family: v
   .home-page .lead { margin: 0; font-size: clamp(1.45rem, 6.4vw, 1.9rem); }
   .home-page .interest-list { margin-top: clamp(18px, 3vh, 30px); padding-top: 12px; }
   .introduction { padding-top: 0; }
-  h1 { font-size: clamp(3.5rem, 17vw, 5.4rem); }
   .interest-list { grid-template-columns: 1fr; }
+}
+@media (max-width: 760px) {
+  .wrap { width: min(100% - 32px, 620px); }
+  .site-header { height: 72px; }
+  nav { gap: 12px; }
+  .wordmark, nav a { font-size: .7rem; }
+  .home-page main { height: calc(100svh - 72px); }
+  h1 { font-size: clamp(3.5rem, 17vw, 5.4rem); }
   .entry-row { grid-template-columns: 1fr; gap: 12px; padding-block: 25px; }
   .archive-header { min-height: 270px; padding-block: 72px 56px; }
   .archive-header h1 { font-size: clamp(3rem, 11vw, 5rem); overflow-wrap: break-word; }
